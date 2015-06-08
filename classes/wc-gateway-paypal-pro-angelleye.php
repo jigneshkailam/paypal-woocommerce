@@ -1220,9 +1220,10 @@ class WC_Gateway_PayPal_Pro_AngellEYE extends WC_Payment_Gateway {
         {
             $order->add_order_note( 'Refund Transaction ID:'. $PayPalResult['REFUNDTRANSACTIONID'] );
             $order->update_status( 'refunded' );
+            if (ob_get_length()) ob_end_clean();
             return true;
         }else{
-            $pc_message = apply_filters( 'angelleye_pc_refund_message', $PayPalResult['L_LONGMESSAGE0'], $PayPalResult['L_ERRORCODE'], $PayPalResult );
+            $pc_message = apply_filters( 'angelleye_pc_refund_message', $PayPalResult['L_LONGMESSAGE0'], $PayPalResult['L_ERRORCODE0'], $PayPalResult );
             return new WP_Error( 'ec_refund-error', $pc_message );
         }
 
